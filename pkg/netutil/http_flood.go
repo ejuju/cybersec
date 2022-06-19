@@ -19,6 +19,8 @@ type HTTPFlood struct {
 	RequestBody   io.Reader
 }
 
+// Attack sends requests in a loop (with the given number of concurrent goroutines)
+// until the deadline is exceeded or the maximum number of requests has been reached.
 func (hf *HTTPFlood) Attack() error {
 	var numSent uint64
 	errChan := make(chan error)
@@ -68,38 +70,3 @@ func (hf *HTTPFlood) Attack() error {
 	wg.Wait()
 	return <-errChan
 }
-
-// func (hf *HTTPFlood) Attack() error {
-// 	// wg := &sync.WaitGroup{}
-
-// 	for i := 0; i < hf.MaxRequests; i++ {
-// 		// go func() {
-// 		// wg.Add(1)
-// 		// defer wg.Done()
-
-// 		req, err := http.NewRequestWithContext(
-// 			hf.Ctx,
-// 			hf.RequestMethod,
-// 			hf.RequestURL,
-// 			hf.RequestBody,
-// 		)
-// 		req.Header.Add("User-Agent", RandUserAgent(nil))
-// 		if err != nil {
-// 			// todo: refactor
-// 			fmt.Println("http flood request err:", err)
-// 			return nil
-// 		}
-
-// 		res, err := http.DefaultClient.Do(req)
-// 		if err != nil {
-// 			// todo: refactor
-// 			fmt.Println("http flood response err:", err)
-// 			return nil
-// 		}
-// 		fmt.Printf("%#v\n", res)
-// 		// }()
-// 	}
-
-// 	// wg.Wait()
-// 	return nil
-// }
