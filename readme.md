@@ -14,7 +14,7 @@ DOS attacks:
 - [ ] Slow loris attack
 
 User agents:
-- [ ] Random user agents - for random HTTP user agents useful for DOS attacks
+- [x] Random user agents - for random HTTP user agents useful for DOS attacks
 
 ## Ideas for V1
 - File encryption (fsutil)
