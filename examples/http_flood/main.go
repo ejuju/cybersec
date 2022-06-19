@@ -14,7 +14,7 @@ func main() {
 	defer cancel()
 
 	httptarget := &netutil.HTTPFlood{
-		Ctx:           ctx,
+		Context:       ctx,
 		RequestURL:    "http://localhost:8080",
 		RequestMethod: http.MethodGet,
 		RequestBody:   nil,

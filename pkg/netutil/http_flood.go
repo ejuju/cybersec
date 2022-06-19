@@ -11,7 +11,7 @@ import (
 )
 
 type HTTPFlood struct {
-	Ctx           context.Context
+	Context       context.Context
 	MaxRequests   uint64
 	NumGoroutines int
 	RequestMethod string
@@ -34,7 +34,7 @@ func (hf *HTTPFlood) Attack() error {
 
 			for {
 				// stop attack if deadline is exceeded
-				if deadline, _ := hf.Ctx.Deadline(); deadline.Before(time.Now()) {
+				if deadline, _ := hf.Context.Deadline(); deadline.Before(time.Now()) {
 					break
 				}
 
@@ -46,7 +46,7 @@ func (hf *HTTPFlood) Attack() error {
 					atomic.AddUint64(numSent, 1)
 				}
 
-				req, err := http.NewRequestWithContext(hf.Ctx, hf.RequestMethod, hf.RequestURL, hf.RequestBody)
+				req, err := http.NewRequestWithContext(hf.Context, hf.RequestMethod, hf.RequestURL, hf.RequestBody)
 				req.Header.Add("User-Agent", RandUserAgent(nil))
 				if err != nil {
 					errChan <- err

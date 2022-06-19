@@ -51,7 +51,7 @@ func TestHTTPFlood_Attack(t *testing.T) {
 	defer cancel()
 
 	err := (&HTTPFlood{
-		Ctx:           ctx,
+		Context:       ctx,
 		RequestURL:    "http://localhost:8080/",
 		MaxRequests:   numRequests,
 		RequestMethod: http.MethodGet,
