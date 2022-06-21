@@ -6,12 +6,14 @@ Port scanning:
 - [x] Default port scanner - perform basic port scanning (not stealthy)
 - [ ] TCP SYN port scanner - perform stealthy TCP port scanning (https://github.com/google/gopacket/blob/v1.1.19/examples/synscan/main.go)
 
-DOS attacks:
+Attacks:
 - [x] HTTP flood attack
+- [ ] TCP SYN flood attack
+- [ ] UDP flood attack
 - [ ] DNS amplification attack
 - [ ] NTP amplification attack
-- [ ] TCP SYN flood attack
 - [ ] Slow loris attack
+- [ ] DNS cache poisoning
 
 User agents:
 - [x] Random user agents - for random HTTP user agents useful for DOS attacks

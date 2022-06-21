@@ -16,12 +16,12 @@ func main() {
 	start := time.Now()
 
 	// scan ports
-	ports := netutil.PortRange(0, 65535)
-	networks := map[string]struct{}{"tcp4": {}, "tcp6": {}, "udp4": {}, "udp6": {}}
+	ports := netutil.PortRange(22, 23)
+	networks := map[string]struct{}{"tcp": {}, "tcp4": {}, "tcp6": {}}
 	scanResults := netutil.ScanPorts(netutil.PortScanConfiguration{
 		Ports:    ports,
 		Networks: networks,
-		Host:     "127.0.0.1",
+		Host:     "192.168.0.43",
 		Scanner: &netutil.DefaultPortScanner{
 			ReadTimeout:      50 * time.Millisecond,
 			DialTimeout:      500 * time.Millisecond,

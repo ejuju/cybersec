@@ -15,7 +15,9 @@ func main() {
 
 	httptarget := &netutil.HTTPFlood{
 		Context:       ctx,
-		RequestURL:    "http://localhost:8080",
+		NumGoroutines: 10,
+		MaxRequests:   100000,
+		RequestURL:    "http://192.168.0.43:8080",
 		RequestMethod: http.MethodGet,
 		RequestBody:   nil,
 	}
