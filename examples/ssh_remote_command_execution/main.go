@@ -28,7 +28,6 @@ func main() {
 	// run SSH command
 	user := "admin"
 	password := "admin123"
-	command := "uname -a"
 
 	sshconn, err := netutil.NewSSHConnection(netutil.SSHConnectionConfig{
 		Address:     address,
@@ -40,6 +39,7 @@ func main() {
 	stdout := &bytes.Buffer{}
 	stderr := &bytes.Buffer{}
 
+	command := "uname -a"
 	err = sshconn.Run(command, stdout, stderr)
 	if err != nil {
 		fmt.Printf("unable to run SSH command:\n%v\nerror: %v\n", command, err)

@@ -8,6 +8,7 @@ Port scanning:
 
 Attacks:
 - [x] HTTP flood attack
+- [x] SSH remote shell execution
 - [ ] TCP SYN flood attack
 - [ ] UDP flood attack
 - [ ] DNS amplification attack
