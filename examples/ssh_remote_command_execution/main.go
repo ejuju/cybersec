@@ -42,10 +42,10 @@ func main() {
 	command := "uname -a"
 	err = sshconn.Run(command, stdout, stderr)
 	if err != nil {
-		fmt.Printf("unable to run SSH command:\n%v\nerror: %v\n", command, err)
+		fmt.Printf("unable to run SSH command:\n%#v\nerror: %v\n", command, err)
 		os.Exit(1)
 	}
 
-	fmt.Printf("SSH command stdout: \"%s\"\n", stdout)
-	fmt.Printf("SSH command stderr: \"%s\"\n", stderr)
+	fmt.Printf("SSH command stdout: \"%#v\"\n", stdout)
+	fmt.Printf("SSH command stderr: \"%#v\"\n", stderr)
 }
