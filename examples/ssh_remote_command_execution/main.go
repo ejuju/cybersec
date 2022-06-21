@@ -26,9 +26,9 @@ func main() {
 	tcpClient.Close()
 
 	// run SSH command
-	command := "echo \"hello world\""
 	user := "admin"
 	password := "admin123"
+	command := "uname -a"
 
 	sshconn, err := netutil.NewSSHConnection(netutil.SSHConnectionConfig{
 		Address:     address,
@@ -46,6 +46,6 @@ func main() {
 		os.Exit(1)
 	}
 
-	fmt.Printf("SSH command stdout: \"%v\"\n", stdout)
-	fmt.Printf("SSH command stderr: \"%v\"\n", stderr)
+	fmt.Printf("SSH command stdout: \"%s\"\n", stdout)
+	fmt.Printf("SSH command stderr: \"%s\"\n", stderr)
 }
