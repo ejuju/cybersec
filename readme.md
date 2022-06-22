@@ -20,7 +20,6 @@ Remote access:
 Other utilities:
 - [x] Sample HTTP user agents
 
-
 ## Ideas for V1
 - Steganography (fsutil)
 - Botnet framework (netutil)
