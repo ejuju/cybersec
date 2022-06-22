@@ -1,6 +1,7 @@
 package netutil
 
 // PortScanner can scan a port on a network
+// It returns a possible banner and true if the connection is open
 type PortScanner interface {
 	Scan(host string, port int, network string) (string, bool)
 }
