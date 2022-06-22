@@ -26,13 +26,10 @@ func main() {
 	tcpClient.Close()
 
 	// run SSH command
-	user := "admin"
-	password := "admin123"
-
 	sshconn, err := netutil.NewSSHConnection(netutil.SSHConnectionConfig{
 		Address:     address,
-		User:        user,
-		Password:    password,
+		User:        "admin",
+		Password:    "admin123",
 		DialTimeout: 100 * time.Millisecond,
 	})
 

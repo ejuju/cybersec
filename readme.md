@@ -11,7 +11,7 @@ Attacks:
 - [x] SSH remote shell execution
 - [ ] TCP SYN flood attack
 - [ ] UDP flood attack
-- [ ] DNS amplification attack
+- [ ] DNS amplification attack (github.com/say4n/dns.amplify & github.com/Nick-Triller/damplify)
 - [ ] NTP amplification attack
 - [ ] Slow loris attack
 - [ ] DNS cache poisoning
