@@ -1,11 +1,8 @@
-all: gomod vet test
+all: gomod test
 
 gomod:
 	go mod tidy
 	go mod verify
 
-vet:
-	go vet ./...
-
 test:
-	go test ./... -timeout 30s -race
+	go test ./... -cover -timeout 30s -race -cover -vet "" -cpu 4
