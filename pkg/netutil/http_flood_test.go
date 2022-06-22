@@ -52,7 +52,7 @@ func TestHTTPFlood_Attack(t *testing.T) {
 		MaxRequests:   numRequests,
 		RequestMethod: http.MethodGet,
 		RequestBody:   nil,
-		NumGoroutines: 1,
+		NumGoroutines: 2,
 	}).Attack()
 	if err != nil {
 		t.Fatal(err)
