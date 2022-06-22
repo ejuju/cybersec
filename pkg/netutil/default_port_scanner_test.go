@@ -2,6 +2,7 @@ package netutil
 
 import (
 	"net"
+	"strconv"
 	"testing"
 	"time"
 )
@@ -9,11 +10,13 @@ import (
 func TestDefaultPortScanner_Scan(t *testing.T) {
 	t.Parallel()
 
+	udpTestPort := 58007
 	tcpTestPort := 58008
-	tcpTestBanner := "abc"
+	closedPort := 0
+	testBanner := "abc"
 
+	// open tcp port
 	go func() {
-		// open tcp port
 		l, err := net.ListenTCP("tcp", &net.TCPAddr{Port: tcpTestPort})
 		if err != nil {
 			panic(err)
@@ -25,36 +28,53 @@ func TestDefaultPortScanner_Scan(t *testing.T) {
 			if err != nil {
 				panic(err)
 			}
-			conn.Write([]byte(tcpTestBanner))
+			conn.Write([]byte(testBanner))
 			defer conn.Close()
+		}
+	}()
+
+	// open udp port
+	go func() {
+		pc, err := net.ListenPacket("udp", ":"+strconv.Itoa(udpTestPort))
+		if err != nil {
+			panic(err)
+		}
+		defer pc.Close()
+
+		for {
 		}
 	}()
 
 	scanner := &DefaultPortScanner{
 		DialTimeout:      50 * time.Millisecond,
 		ReadTimeout:      50 * time.Millisecond,
-		BannerBufferSize: len(tcpTestBanner),
+		BannerBufferSize: len(testBanner),
 	}
 
-	t.Run("should detect open TCP ports", func(t *testing.T) {
-		_, isopen := scanner.Scan("localhost", tcpTestPort, "tcp")
+	t.Run("should detect open TCP ports and read their banner", func(t *testing.T) {
+		banner, isopen := scanner.Scan("localhost", tcpTestPort, "tcp")
 		if !isopen {
-			t.Fatalf("port %d is closed (according to the scan)", tcpTestPort)
+			t.Fatalf("TCP port %d is closed (according to the scan)", tcpTestPort)
 		}
-	})
-
-	t.Run("should read the banner of open TCP", func(t *testing.T) {
-		banner, _ := scanner.Scan("localhost", tcpTestPort, "tcp")
-		if banner != tcpTestBanner {
-			t.Fatalf("banner unexpected banner received: want %#v, but got %#v", tcpTestBanner, banner)
+		if banner != testBanner {
+			t.Fatalf("unexpected banner: want %#v, but got %#v", testBanner, banner)
 		}
-	})
 
-	t.Run("should detect closed TCP ports", func(t *testing.T) {
-		closedPort := tcpTestPort + 1
-		_, isopen := scanner.Scan("localhost", closedPort, "tcp")
+		_, isopen = scanner.Scan("localhost", closedPort, "tcp")
 		if isopen {
-			t.Fatalf("port %d is open (according to the scan)", closedPort)
+			t.Fatalf("TCP port %d is open (according to the scan)", closedPort)
+		}
+	})
+
+	t.Run("should detect open UDP ports", func(t *testing.T) {
+		_, isopen := scanner.Scan("localhost", udpTestPort, "udp")
+		if !isopen {
+			t.Fatalf("UDP port %d is closed (according to the scan)", udpTestPort)
+		}
+
+		_, isopen = scanner.Scan("localhost", closedPort, "udp")
+		if isopen {
+			t.Fatalf("UDP port %d is open (according to the scan)", closedPort)
 		}
 	})
 }
