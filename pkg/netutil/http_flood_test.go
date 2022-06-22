@@ -2,14 +2,17 @@ package netutil
 
 import (
 	"context"
-	"net"
 	"net/http"
+	"strconv"
 	"sync"
 	"testing"
 	"time"
 )
 
 func TestHTTPFlood_Attack(t *testing.T) {
+	t.Parallel()
+
+	httpPort := 58001 // make sure this does not conflict with other tests
 	maxDuration := 50 * time.Millisecond
 	var numRequests uint64 = 2
 	received := 0
@@ -24,14 +27,9 @@ func TestHTTPFlood_Attack(t *testing.T) {
 		useragent = r.UserAgent()
 	})
 
-	serverctx, cancelserver := context.WithCancel(context.Background())
-	defer cancelserver()
-
 	server := http.Server{
-		Handler:     router,
-		Addr:        ":8080",
-		BaseContext: func(net.Listener) context.Context { return serverctx },
-		ConnContext: func(ctx context.Context, c net.Conn) context.Context { return serverctx },
+		Handler: router,
+		Addr:    ":" + strconv.Itoa((httpPort)),
 	}
 
 	// listen and serve in seperate routine
@@ -39,12 +37,10 @@ func TestHTTPFlood_Attack(t *testing.T) {
 		err := server.ListenAndServe()
 		if err != nil {
 			t.Error(err)
-			return
 		}
-		return
 	}()
 
-	// wait for server to start
+	// quick and dirty: wait for server to start
 	time.Sleep(50 * time.Millisecond)
 
 	ctx, cancel := context.WithTimeout(context.Background(), maxDuration)
@@ -52,7 +48,7 @@ func TestHTTPFlood_Attack(t *testing.T) {
 
 	err := (&HTTPFlood{
 		Context:       ctx,
-		RequestURL:    "http://localhost:8080/",
+		RequestURL:    "http://localhost:" + strconv.Itoa(httpPort) + "/",
 		MaxRequests:   numRequests,
 		RequestMethod: http.MethodGet,
 		RequestBody:   nil,
@@ -62,12 +58,9 @@ func TestHTTPFlood_Attack(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	// stop server
-	cancelserver()
-
 	t.Run("should stop the attack after deadline is exceeded", func(t *testing.T) {
 		if deadline, _ := ctx.Deadline(); deadline.Before(time.Now()) {
-			t.Fatal()
+			t.Fatalf("deadline is exceeded by %s", time.Now().Sub(deadline))
 		}
 	})
 

@@ -45,6 +45,9 @@ func TestDefaultPortScanner_Scan(t *testing.T) {
 		}
 	}()
 
+	// quick and dirty to wait for listeners to start
+	time.Sleep(50 * time.Millisecond)
+
 	scanner := &DefaultPortScanner{
 		DialTimeout:      50 * time.Millisecond,
 		ReadTimeout:      50 * time.Millisecond,
