@@ -4,14 +4,14 @@
 
 Recon:
 - [x] Default port scanner - perform basic port scanning (not stealthy)
-- [ ] TCP SYN port scanner - perform stealthy TCP port scanning (https://github.com/google/gopacket/blob/v1.1.19/examples/synscan/main.go)
+- [ ] TCP SYN port scanner - perform stealthy TCP port scanning (https://github.com/google/gopacket/blob/master/examples/synscan/main.go)
 
 Network attacks:
 - [x] HTTP flood attack
+- [ ] Slow loris attack
 - [ ] TCP SYN flood attack
 - [ ] UDP flood attack
 - [ ] NTP amplification attack
-- [ ] Slow loris attack
 - [ ] DNS cache poisoning
 
 Remote access:

@@ -1,8 +1,8 @@
 package netutil
 
 // todo: provide DNS amplification attack implementation
-type DNSAmplification struct {
-}
+// type DNSAmplification struct {
+// }
 
 var DNSResolverIPs = []string{
 	"1.0.0.1",
