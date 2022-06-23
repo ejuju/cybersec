@@ -2,6 +2,18 @@ package testutil
 
 import "testing"
 
+func TestCheckNotEqualError(t *testing.T) {
+	t.Parallel()
+
+	expected := 10
+
+	t.Run("should return an error for slice with empty element", func(t *testing.T) {
+		if CheckNotEqualError(1+expected, expected) == nil {
+			t.Fatal("should return a not equal error")
+		}
+	})
+}
+
 func TestCheckNilPointerError(t *testing.T) {
 	t.Parallel()
 
@@ -38,18 +50,6 @@ func TestCheckEmptyStringInSliceError(t *testing.T) {
 	t.Run("should return an error for slice with empty element", func(t *testing.T) {
 		if CheckEmptyStringInSliceError(sliceWithEmptyElement) == nil {
 			t.Fatal("should return an empty slice element error")
-		}
-	})
-}
-
-func TestCheckNotEqualError(t *testing.T) {
-	t.Parallel()
-
-	expected := 10
-
-	t.Run("should return an error for slice with empty element", func(t *testing.T) {
-		if CheckNotEqualError(1+expected, expected) == nil {
-			t.Fatal("should return a not equal error")
 		}
 	})
 }

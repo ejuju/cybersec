@@ -15,6 +15,13 @@ func Check(t *testing.T, errs ...error) {
 	}
 }
 
+func CheckNotEqualError[T comparable](actual T, expected T) error {
+	if actual != expected {
+		return errors.New(fmt.Sprintf("got unexpected value %#v, but wanted %#v", actual, expected))
+	}
+	return nil
+}
+
 // Accepts pointers to any type, and all slices and maps.
 func CheckNilPointerError[T any, K comparable, PtrT *T | []T | map[K]T](ptr PtrT) error {
 	if ptr == nil {
@@ -35,13 +42,6 @@ func CheckEmptyStringInSliceError(input []string) error {
 		if str == "" {
 			return errors.New("slice contains empty string at index " + strconv.Itoa(i))
 		}
-	}
-	return nil
-}
-
-func CheckNotEqualError[T comparable](actual T, expected T) error {
-	if actual != expected {
-		return errors.New(fmt.Sprintf("got unexpected value %#v, but wanted %#v", actual, expected))
 	}
 	return nil
 }
