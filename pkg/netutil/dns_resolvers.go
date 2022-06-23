@@ -4,7 +4,7 @@ package netutil
 // type DNSAmplification struct {
 // }
 
-var DNSResolverIPs = []string{
+var SampleDNSResolverAddresses = []string{
 	"1.0.0.1",
 	"1.1.1.1",
 	"1.1.1.2",

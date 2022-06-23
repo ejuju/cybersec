@@ -35,8 +35,7 @@ func NewSSHConnection(config SSHConnectionConfig) (*SSHConnection, error) {
 
 	// attempt to connect via SSH
 	c, err := ssh.Dial("tcp", config.Address.String(), clientconfig)
-	// if there is no error (from the call to ssh.Dial),
-	// then the credentials are valid
+	// if there is no error (from the call to ssh.Dial), then the credentials are valid
 	return &SSHConnection{
 		config: config,
 		client: c,

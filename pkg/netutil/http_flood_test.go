@@ -72,7 +72,7 @@ func TestHTTPFlood_Attack(t *testing.T) {
 
 	t.Run("should send a request with user-agent", func(t *testing.T) {
 		if useragent == "" {
-			t.Fatalf("empty user-agent")
+			t.Fatal("empty user-agent")
 		}
 	})
 
