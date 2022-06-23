@@ -1,5 +1,30 @@
 package netutil
 
+// PortScanner can scan a port on a network for a given host.
+// It returns a possible banner (string read from port connection)
+// and a bool (true if the connection is open)
+type PortScanner interface {
+	Scan(host string, port int, network string) (string, bool)
+}
+
+type MockPortScanner struct {
+	PortBanner string
+	PortIsOpen bool
+}
+
+func (mockPS *MockPortScanner) Scan(host string, port int, network string) (string, bool) {
+	return mockPS.PortBanner, mockPS.PortIsOpen
+}
+
+// PortRange is a utility function to initialize a continuous set of ports
+func PortRange(min, max int) map[int]struct{} {
+	ports := map[int]struct{}{}
+	for i := min; i < max; i++ {
+		ports[i] = struct{}{}
+	}
+	return ports
+}
+
 // PortScanConfiguration holds configuration variables for the ScanPorts function
 type PortScanConfiguration struct {
 	Host     string

@@ -3,6 +3,8 @@ package testutil
 import "testing"
 
 func TestCheckNilPointerError(t *testing.T) {
+	t.Parallel()
+
 	var nilSlice []any = nil
 	var notNilSlice []any = []any{}
 
@@ -17,6 +19,8 @@ func TestCheckNilPointerError(t *testing.T) {
 }
 
 func TestCheckZeroLengthError(t *testing.T) {
+	t.Parallel()
+
 	var zeroLengthSlice = []any{}
 
 	t.Run("should return an error for slice of length 0", func(t *testing.T) {
@@ -27,6 +31,8 @@ func TestCheckZeroLengthError(t *testing.T) {
 }
 
 func TestCheckEmptyStringInSliceError(t *testing.T) {
+	t.Parallel()
+
 	var sliceWithEmptyElement = []string{"a", ""}
 
 	t.Run("should return an error for slice with empty element", func(t *testing.T) {
@@ -37,6 +43,8 @@ func TestCheckEmptyStringInSliceError(t *testing.T) {
 }
 
 func TestCheckNotEqualError(t *testing.T) {
+	t.Parallel()
+
 	expected := 10
 
 	t.Run("should return an error for slice with empty element", func(t *testing.T) {
