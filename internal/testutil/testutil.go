@@ -2,6 +2,7 @@ package testutil
 
 import (
 	"errors"
+	"fmt"
 	"strconv"
 	"testing"
 )
@@ -34,6 +35,13 @@ func CheckEmptyStringInSliceError(input []string) error {
 		if str == "" {
 			return errors.New("slice contains empty string at index " + strconv.Itoa(i))
 		}
+	}
+	return nil
+}
+
+func CheckNotEqualError[T comparable](want T, got T) error {
+	if want != got {
+		return errors.New(fmt.Sprintf("want: %#v, but got: %#v", want, got))
 	}
 	return nil
 }

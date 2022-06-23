@@ -1,6 +1,6 @@
 # Cybersecurity toolkit for Gophers
 
-## V0
+## `v0.0.0`
 
 Recon:
 - [x] Default port scanner - perform basic port scanning (not stealthy)
@@ -20,7 +20,7 @@ Remote access:
 Other utilities:
 - [x] Sample HTTP user agents
 
-## Ideas for V1
+## `v0.1.0`
 - Steganography (fsutil)
 - Botnet framework (netutil)
 - File encryption (fsutil)

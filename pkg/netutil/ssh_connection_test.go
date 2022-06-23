@@ -14,7 +14,6 @@ import (
 // TestSSHConnection is done by starting a SSH server
 func TestSSHConnection(t *testing.T) {
 	t.Parallel()
-	t.Skip("to fix: unable to connect to ssh server for now")
 
 	serverPort := 2022
 	username := "test"
@@ -26,9 +25,7 @@ func TestSSHConnection(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	t.Cleanup(func() {
-		l.Close()
-	})
+	defer l.Close()
 
 	// accept incoming connections to SSH server
 	go startTestSSHServer(t, l, &ssh.ServerConfig{
@@ -44,6 +41,8 @@ func TestSSHConnection(t *testing.T) {
 	time.Sleep(50 * time.Millisecond)
 
 	t.Run("should be able to connect to SSH server", func(t *testing.T) {
+		t.Skip("to fix: unable to connect to ssh server for now")
+
 		sshconn, err := NewSSHConnection(SSHConnectionConfig{
 			Address:  &net.TCPAddr{Port: serverPort},
 			User:     username,
@@ -67,6 +66,8 @@ func TestSSHConnection(t *testing.T) {
 	})
 
 	t.Run("should be able to run a command remotely", func(t *testing.T) {
+		t.Skip("to fix: unable to connect to ssh server for now")
+
 		sshconn, err := NewSSHConnection(SSHConnectionConfig{
 			Address:  &net.TCPAddr{Port: serverPort},
 			User:     username,

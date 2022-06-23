@@ -2,18 +2,21 @@ package testutil
 
 import "testing"
 
-func TestNilPointerError(t *testing.T) {
+func TestCheckNilPointerError(t *testing.T) {
 	var nilSlice []any = nil
+	var notNilSlice []any = []any{}
 
 	t.Run("should return an error for nil slice", func(t *testing.T) {
-		// if NilPointerError[string, string, []string](nilSlice) == nil {
 		if CheckNilPointerError[any, *any](nilSlice) == nil {
 			t.Fatal("should return a nil slice error")
+		}
+		if CheckNilPointerError[any, *any](notNilSlice) != nil {
+			t.Fatal("should NOT return a nil slice error")
 		}
 	})
 }
 
-func TestZeroLengthError(t *testing.T) {
+func TestCheckZeroLengthError(t *testing.T) {
 	var zeroLengthSlice = []any{}
 
 	t.Run("should return an error for slice of length 0", func(t *testing.T) {
@@ -23,7 +26,7 @@ func TestZeroLengthError(t *testing.T) {
 	})
 }
 
-func TestEmptyStringInSliceError(t *testing.T) {
+func TestCheckEmptyStringInSliceError(t *testing.T) {
 	var sliceWithEmptyElement = []string{"a", ""}
 
 	t.Run("should return an error for slice with empty element", func(t *testing.T) {
