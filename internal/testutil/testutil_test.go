@@ -35,3 +35,13 @@ func TestCheckEmptyStringInSliceError(t *testing.T) {
 		}
 	})
 }
+
+func TestCheckNotEqualError(t *testing.T) {
+	expected := 10
+
+	t.Run("should return an error for slice with empty element", func(t *testing.T) {
+		if CheckNotEqualError(1+expected, expected) == nil {
+			t.Fatal("should return a not equal error")
+		}
+	})
+}
