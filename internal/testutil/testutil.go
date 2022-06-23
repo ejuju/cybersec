@@ -39,9 +39,9 @@ func CheckEmptyStringInSliceError(input []string) error {
 	return nil
 }
 
-func CheckNotEqualError[T comparable](want T, got T) error {
-	if want != got {
-		return errors.New(fmt.Sprintf("want: %#v, but got: %#v", want, got))
+func CheckNotEqualError[T comparable](actual T, expected T) error {
+	if actual != expected {
+		return errors.New(fmt.Sprintf("got unexpected value %#v, but wanted %#v", actual, expected))
 	}
 	return nil
 }
