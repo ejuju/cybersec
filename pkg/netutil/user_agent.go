@@ -2,6 +2,7 @@ package netutil
 
 import "math/rand"
 
+// You can pass nil to use the default sample user agents provided by the package
 func RandUserAgent(uagents []string) string {
 	if uagents == nil {
 		uagents = SampleUserAgents
