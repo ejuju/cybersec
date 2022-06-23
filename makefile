@@ -5,4 +5,5 @@ gomod:
 	go mod verify
 
 test:
-	go test ./... -cover -timeout 30s -race -cover -vet "" -cpu 4
+	go vet
+	go test ./... -cover -timeout 60s -race -cpu 4

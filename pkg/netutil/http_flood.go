@@ -58,6 +58,8 @@ func (hf *HTTPFlood) Attack() error {
 					// todo: refactor
 					// in this case, the error could be due to our actions disrupting the target
 					fmt.Println("http flood response err:", err)
+
+					<-errChan
 					return
 				}
 			}
