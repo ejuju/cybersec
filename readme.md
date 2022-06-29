@@ -5,7 +5,8 @@
 - [x] Default port scanner
 - [x] HTTP flood attack
 - [x] Sample HTTP user agents
-- [ ] LSB Steganography (https://github.com/auyer/steganography)
+- [ ] PNG LSB Steganography (https://github.com/auyer/steganography)
+- [ ] Write our own implementation of PNG LSB steganographer
 
 ## `v0.1.0`
 - [ ] SSH remote shell execution
