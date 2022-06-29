@@ -1,3 +1,5 @@
+github.com/auyer/steganography v1.0.1 h1:b3zlDd9FXlAIr5Io9KyiLG1sinaW7Wk0gelpV+lxwWE=
+github.com/auyer/steganography v1.0.1/go.mod h1:Q2qN+f1ixaXnKTCT4xkSDCZ/5NiOpUeTgOCLwQdJD+A=
 golang.org/x/crypto v0.0.0-20220525230936-793ad666bf5e h1:T8NU3HyQ8ClP4SEE+KbFlg6n0NhuTsN4MyznaarGsZM=
 golang.org/x/crypto v0.0.0-20220525230936-793ad666bf5e/go.mod h1:IxCIyHEi3zRg3s0A5j5BB6A9Jmi73HwBIUl50j+osU4=
 golang.org/x/sys v0.0.0-20210615035016-665e8c7367d1 h1:SrN+KX8Art/Sf4HNj6Zcz06G7VEz+7w9tdXTPOZ7+l4=
