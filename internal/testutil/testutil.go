@@ -7,7 +7,7 @@ import (
 	"testing"
 )
 
-func Check(t *testing.T, errs ...error) {
+func FailOnError(t *testing.T, errs ...error) {
 	for _, err := range errs {
 		if err != nil {
 			t.Fatal(err)
@@ -15,6 +15,7 @@ func Check(t *testing.T, errs ...error) {
 	}
 }
 
+// CheckNotEqualError returns an error if two comparable elements are not equal to each other
 func CheckNotEqualError[T comparable](actual T, expected T) error {
 	if actual != expected {
 		return errors.New(fmt.Sprintf("got unexpected value %#v, but wanted %#v", actual, expected))
@@ -22,7 +23,7 @@ func CheckNotEqualError[T comparable](actual T, expected T) error {
 	return nil
 }
 
-// Accepts pointers to any type, and all slices and maps.
+// CheckNilPointerError returns an error if a pointer to any type, or a slice or map is nil
 func CheckNilPointerError[T any, K comparable, PtrT *T | []T | map[K]T](ptr PtrT) error {
 	if ptr == nil {
 		return errors.New("pointer is nil")
@@ -30,6 +31,8 @@ func CheckNilPointerError[T any, K comparable, PtrT *T | []T | map[K]T](ptr PtrT
 	return nil
 }
 
+// CheckZeroLengthError returns an error if the length of the slice is zero.
+// NB: A nil slice will also return an error
 func CheckZeroLengthError[T any, K comparable, LenT []T | string | map[K]T](t LenT) error {
 	if len(t) == 0 {
 		return errors.New("length is zero")
@@ -37,6 +40,8 @@ func CheckZeroLengthError[T any, K comparable, LenT []T | string | map[K]T](t Le
 	return nil
 }
 
+// CheckEmptyStringInSliceError returns an error if the slice contains an empty string.
+// NB: no error is returned if the slice is nil or empty.
 func CheckEmptyStringInSliceError(input []string) error {
 	for i, str := range input {
 		if str == "" {

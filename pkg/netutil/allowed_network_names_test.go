@@ -8,7 +8,10 @@ import (
 
 func TestAllowedNetworkNames(t *testing.T) {
 	t.Parallel()
-	t.Run("should not be empty", func(t *testing.T) {
-		testutil.Check(t, testutil.CheckZeroLengthError[struct{}, string](AllowedNetworkNames))
+	t.Run("should not be empty or nil", func(t *testing.T) {
+		testutil.FailOnError(
+			t,
+			testutil.CheckZeroLengthError[struct{}, string](AllowedNetworkNames),
+		)
 	})
 }

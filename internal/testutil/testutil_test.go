@@ -11,6 +11,9 @@ func TestCheckNotEqualError(t *testing.T) {
 		if CheckNotEqualError(1+expected, expected) == nil {
 			t.Fatal("should return a not equal error")
 		}
+		if CheckNotEqualError(expected, expected) != nil {
+			t.Fatal("should NOT return a not equal error")
+		}
 	})
 }
 
@@ -34,9 +37,13 @@ func TestCheckZeroLengthError(t *testing.T) {
 	t.Parallel()
 
 	var zeroLengthSlice = []any{}
+	var validSlice = []int{0}
 
 	t.Run("should return an error for slice of length 0", func(t *testing.T) {
 		if CheckZeroLengthError[any, *any](zeroLengthSlice) == nil {
+			t.Fatal("should return a zero-length slice error")
+		}
+		if CheckZeroLengthError[int, string](validSlice) == nil {
 			t.Fatal("should return a zero-length slice error")
 		}
 	})

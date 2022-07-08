@@ -9,7 +9,8 @@ import (
 
 func TestSampleHTTPUserAgents(t *testing.T) {
 	t.Run("should not be nil, of length 0, or contain empty strings", func(t *testing.T) {
-		testutil.Check(t,
+		testutil.FailOnError(
+			t,
 			testutil.CheckZeroLengthError[string, *any](SampleHTTPUserAgents),
 			testutil.CheckEmptyStringInSliceError(SampleHTTPUserAgents),
 		)
