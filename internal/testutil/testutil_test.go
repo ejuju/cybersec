@@ -43,7 +43,7 @@ func TestCheckZeroLengthError(t *testing.T) {
 		if CheckZeroLengthError[any, *any](zeroLengthSlice) == nil {
 			t.Fatal("should return a zero-length slice error")
 		}
-		if CheckZeroLengthError[int, string](validSlice) == nil {
+		if CheckZeroLengthError[int, string](validSlice) != nil {
 			t.Fatal("should return a zero-length slice error")
 		}
 	})
