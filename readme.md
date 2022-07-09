@@ -1,11 +1,14 @@
 # Cybersecurity toolkit for Gophers
 
+For educational purposes, work in progress....
+
 ## `v0.0.0`
 
 - [x] Default port scanner
 - [x] HTTP flood attack
 - [x] Sample HTTP user agents
-- [ ] PNG LSB Steganography (https://github.com/auyer/steganography)
+- [x] PNG LSB Steganography (https://github.com/auyer/steganography)
+- [x] UTF-8 Steganography (with zero-width characters)
 - [ ] Write our own implementation of PNG LSB steganographer
 
 ## `v0.1.0`
